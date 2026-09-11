@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: digital-twin-rul-api
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: TICK_SECONDS
+        value: "10"
+      - key: DB_PATH
+        value: "bharati.db"
+      - key: MODEL_PATH
+        value: "xgboost_rul_model.joblib"
+      - key: OUT_PATH
+        value: "predictions.jsonl"
+      - key: SEED
+        value: "42"
+      - key: ADMIN_TOKEN
+        sync: false   # secret -- set the actual value yourself in the Render dashboard, never commit it
+    healthCheckPath: /health
