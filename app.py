@@ -144,6 +144,19 @@ app.add_middleware(
 )
 
 
+@app.get("/")
+def root():
+    return {
+        "message": "Digital Twin RUL API is running",
+        "endpoints": {
+            "all_predictions": "/predictions",
+            "single_asset": "/predictions/{asset_id}",
+            "health": "/health",
+            "docs": "/docs"
+        }
+    }
+
+
 @app.get("/health")
 def health():
     with _cache_lock:
