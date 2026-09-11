@@ -144,17 +144,12 @@ app.add_middleware(
 )
 
 
+from fastapi.responses import RedirectResponse
+
+
 @app.get("/")
 def root():
-    return {
-        "message": "Digital Twin RUL API is running",
-        "endpoints": {
-            "all_predictions": "/predictions",
-            "single_asset": "/predictions/{asset_id}",
-            "health": "/health",
-            "docs": "/docs"
-        }
-    }
+    return RedirectResponse(url="/predictions")
 
 
 @app.get("/health")
